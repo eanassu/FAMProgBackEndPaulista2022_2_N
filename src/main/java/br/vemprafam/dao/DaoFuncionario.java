@@ -23,6 +23,7 @@ public class DaoFuncionario {
 			connection = DriverManager.getConnection(url,user,password);
 		} catch ( SQLException e ) {
 			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
 	}
 	
@@ -40,6 +41,7 @@ public class DaoFuncionario {
 			}
 		} catch ( SQLException e ) {
 			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
 
 		return lista;
@@ -57,15 +59,27 @@ public class DaoFuncionario {
  			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
  	}
  	
  	public void excluirFuncionario( Funcionario funcionario ) {
- 		
+ 		try {
+ 			String sql = "DELETE FROM FUNCIONARIOS WHERE RE=?";
+ 			PreparedStatement pstmt = connection.prepareStatement(sql);
+ 			pstmt.setInt(1, funcionario.getRe());
+ 			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		} 		
  	}
 	
  	public static void main(String[] args) {
-		DaoFuncionario dao = new DaoFuncionario();
-		System.out.println(dao.getLista());
+ 		System.out.println(1.0/0);
+ 		System.out.println("teste");
+ 		System.out.println(Math.sqrt(-1));
+ 		System.out.println(0.0/0);
+ 		System.out.println(0/0);
 	}
 }

@@ -2,7 +2,9 @@ package br.vemprafam.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,16 +16,16 @@ import br.vemprafam.dao.DaoFuncionario;
 import br.vemprafam.pojo.Funcionario;
 
 /**
- * Servlet implementation class ServletLista
+ * Servlet implementation class ServletCadastro
  */
-@WebServlet("/ServletLista")
-public class ServletLista extends HttpServlet {
+@WebServlet("/cadastrarFuncionario")
+public class ServletCadastro extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ServletLista() {
+    public ServletCadastro() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,32 +34,25 @@ public class ServletLista extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		DaoFuncionario dao = new DaoFuncionario();
-		List<Funcionario> lista = dao.getLista();
-		PrintWriter out = response.getWriter();
-		out.println("<!DOCTYPE html>\r\n"
-				+ "<html>\r\n"
-				+ "<head>\r\n"
-				+ "<meta charset=\"ISO-8859-1\">\r\n"
-				+ "<title>IMC</title>\r\n"
-				+ "</head>\r\n"
-				+ "<body>\r\n");
-		out.println("<table border='1'>");
-		out.println("<tr>\r\n"
-		+ "<th>RE</th><th>nome</th><th>data adm</th><th>salário</th>\r\n"
-		+ "</tr>");
-		for(Funcionario f: lista) {
-			out.println("<tr>\r\n"
-					+ "<td>"+ f.getRe() + "</td>"
-					+ "<td>"+ f.getNome() + "</td>"
-					+ "<td>"+ f.getDataAdmissao() + "</td>"
-					+ "<td>"+f.getSalario()+"</td>\r\n"
-					+ "</tr>");
+		int re = Integer.parseInt(request.getParameter("re"));
+		String nome = request.getParameter("nome");
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		Date dataAdmissao;
+		try {
+			dataAdmissao = format.parse(request.getParameter("dataAdm"));
+		} catch (ParseException e) {
+			dataAdmissao = new Date();
 		}
-		out.println("</table>");	
-		out.println("<br/>\r\n"
-				+ "<a href=\"/Projeto\">voltar</a>");
-		out.println("</body></html>");
+		double salario = Double.parseDouble(request.getParameter("salario"));
+		DaoFuncionario dao = new DaoFuncionario();
+		dao.inserirFuncionario(new Funcionario(re,nome,dataAdmissao,salario));
+		PrintWriter out = response.getWriter();
+		out.println("<html>");
+		out.println("<body>");
+		out.println("Inserido!<br/>");
+		out.println("<a href='/Projeto'>voltar</a>");
+		out.println("</body>");
+		out.println("</html>");
 	}
 
 	/**
