@@ -75,11 +75,51 @@ public class DaoFuncionario {
 		} 		
  	}
 	
+ 	public Funcionario buscarPeloRe( int re ) {
+ 		try {
+ 			String sql = "SELECT * FROM FUNCIONARIOS WHERE RE=?";
+ 			PreparedStatement pstmt = connection.prepareStatement(sql);
+ 			pstmt.setInt( 1, re );
+ 			ResultSet rs = pstmt.executeQuery();
+ 			if ( rs.next() ) {
+ 				return new Funcionario( rs.getInt(1),
+ 										rs.getString(2),
+ 										rs.getDate(3),
+ 										rs.getDouble(4));	
+ 			} else {
+ 				return null;
+ 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		} 		
+ 		
+ 	}
+ 	
  	public static void main(String[] args) {
  		System.out.println(1.0/0);
  		System.out.println("teste");
  		System.out.println(Math.sqrt(-1));
  		System.out.println(0.0/0);
  		System.out.println(0/0);
+	}
+
+	public void alterarFuncionario(Funcionario funcionario) {
+ 		try {
+ 			String sql = "UPDATE FUNCIONARIOS SET NOME=?,DATAADMISSAO=?,"
+ 					+ "SALARIO=? WHERE RE=?";
+ 			PreparedStatement pstmt = connection.prepareStatement(sql);
+
+ 			pstmt.setString(1, funcionario.getNome());
+ 			pstmt.setDate(2, 
+ 					new Date(funcionario.getDataAdmissao().getTime()));
+ 			pstmt.setDouble(3, funcionario.getSalario());
+ 			pstmt.setInt(4, funcionario.getRe());
+ 			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}		
+		
 	}
 }
