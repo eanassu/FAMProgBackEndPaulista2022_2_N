@@ -44,8 +44,9 @@ public class ServletAlteracao extends HttpServlet {
 			dataAdmissao = new Date();
 		}
 		double salario = Double.parseDouble(request.getParameter("salario"));
+		String email = request.getParameter("email");
 		DaoFuncionario dao = new DaoFuncionario();
-		dao.alterarFuncionario(new Funcionario(re,nome,dataAdmissao,salario));
+		dao.alterarFuncionario(new Funcionario(re,nome,dataAdmissao,salario,email));
 		PrintWriter out = response.getWriter();
 		out.println("<html>");
 		out.println("<body>");

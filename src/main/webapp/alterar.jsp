@@ -22,7 +22,8 @@ RE:<input type='text' name='re' value='<%=f.getRe()%>'/><br/>
 Nome:<input type='text' name='nome' value='<%=f.getNome()%>'/><br/>
 Data de Admissão (dd/mm/aaaa):<input type='text' name='dataAdm' 
   value='<%=dataAdmStr%>'/><br/>
-Salário<input type="text" name='salario' value='<%=f.getSalario()%>'/><br/>
+Salário:<input type="text" name='salario' value='<%=f.getSalario()%>'/><br/>
+e-mail:<input type='text' name='email' value='<%=f.getEmail()%>'/><br/>
 <input type='submit' value='enviar'>
 </form>
 <br/>
