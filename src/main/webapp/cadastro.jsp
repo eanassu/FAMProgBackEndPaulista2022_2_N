@@ -11,12 +11,13 @@
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 </head>
 <body>
-<form action="cadastrarFuncionario">
+<form action="mvc">
 RE:<input type='text' name='re'/><br/>
 Nome:<input type='text' name='nome'/><br/>
 Data de Admissão (dd/mm/aaaa):<fam:campoData id='dataAdm'/><br/>
 Salário:<input type="text" name='salario'/><br/>
 e-mail:<input type="text" name='email'/><br/>
+<input type="hidden" name="logica" value="Cadastrar"/>
 <input type='submit' value='enviar'>
 </form>
 <br/>
