@@ -23,13 +23,14 @@ Funcionario f = dao.buscarPeloRe( re );
 SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 String dataAdmStr = format.format(f.getDataAdmissao());
 %>
-<form action="alterarFuncionario">
+<form action="mvc">
 RE:<input type='text' name='re' value='<%=f.getRe()%>'/><br/>
 Nome:<input type='text' name='nome' value='<%=f.getNome()%>'/><br/>
 Data de Admissão (dd/mm/aaaa):<fam:campoData id='dataAdm' 
   value='<%=dataAdmStr%>'/><br/>
 Salário:<input type="text" name='salario' value='<%=f.getSalario()%>'/><br/>
 e-mail:<input type='text' name='email' value='<%=f.getEmail()%>'/><br/>
+<input type='hidden' name='logica' value='Alterar'/>
 <input type='submit' value='enviar'>
 </form>
 <br/>
